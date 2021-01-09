@@ -16,16 +16,64 @@ namespace MinesweeperWPF
         public MainWindow()
         {
             InitializeComponent();
-            InitializeField();
         }
         BitmapImage imgMine = new BitmapImage(new Uri(@"Images/Mine.png", UriKind.Relative));
         BitmapImage imgSign = new BitmapImage(new Uri(@"Images/Sign.jpg", UriKind.Relative));
-        const int fieldSize = 15; //размеры квадратного поля
-        const int minesCount = 40; //количество мин
+        static int fieldSize = 25; //размеры квадратного поля
+        static int minesCount = 180; //количество мин
         static int stepCount = 0;
         BitArray fieldArray = new BitArray(fieldSize * fieldSize);
         Button[] buttonArray = new Button[fieldSize * fieldSize];
         Random rnd = new Random();
+        private void OkButton_Click(object sender, RoutedEventArgs e)
+        {
+            AddField();
+        }
+        void AddField ()
+        {
+            if (fieldSize > 25)
+            {
+                fieldSize = 25;
+                InputSize.Text = "25";
+                MessageBox.Show("25 max size!");
+            }
+            if (fieldSize >= 20 && fieldSize < 25)
+            {
+                minesCount = 120;
+            }
+            if (fieldSize >= 15 && fieldSize < 20)
+            {
+                minesCount = 60;
+            }
+            if (fieldSize >= 10 && fieldSize < 15)
+            {
+                minesCount = 30;
+            }
+            if (fieldSize > 5 && fieldSize < 10)
+            {
+                minesCount = 15;
+            }
+            if (fieldSize <= 5)
+            {
+                if (fieldSize < 5)
+                {
+                    MessageBox.Show("5 min size!");
+                }
+                fieldSize = 5;
+                InputSize.Text = "5";
+                minesCount = 8;
+            }
+
+            fieldArray.Length = fieldSize * fieldSize;
+            buttonArray.Initialize();
+            InitializeField();
+            InputSize.IsEnabled = false;
+            OkButton.IsEnabled = false;
+        }
+        private void InputSize_TextChanged(object sender, TextChangedEventArgs e)
+        {
+            fieldSize = Convert.ToInt32(InputSize.Text);
+        }
 
         void InitializeField(bool stop = false, int count = 0)
         {
@@ -37,7 +85,7 @@ namespace MinesweeperWPF
                 }
                 if (fieldArray[i] == false)
                 {
-                    fieldArray[i] = rnd.Next(0, 100) > 79;
+                    fieldArray[i] = rnd.Next(0, 100) > 81;
                 }
                 else continue;
                 if (fieldArray[i])
@@ -49,8 +97,8 @@ namespace MinesweeperWPF
             if (count < minesCount) InitializeField(true, count);
             if (stop) return;
 
-            this.Width = (playField.Width = 23 * fieldSize) + 30;
-            this.Height = (playField.Height = 23 * fieldSize) + 60;
+            this.Width = (playField.Width = 30 * fieldSize) + 30;
+            this.Height = (playField.Height = 30 * fieldSize) + 60;
             CreateButton(fieldSize * fieldSize);
 
         }
@@ -61,11 +109,11 @@ namespace MinesweeperWPF
             {
                 Button button = new Button()
                 {
-                    Width = 23,
-                    Height = 23,
+                    Width = 30,
+                    Height = 30,
                     Tag = i
                 };
-                // if (fieldArray[i]) button.Content = i; //Проверка расположения мин
+                //if (fieldArray[i]) button.Content = i; //Проверка расположения мин
                 button.Click += new RoutedEventHandler(b_Click);
                 button.MouseRightButtonUp += new MouseButtonEventHandler(b_MouseRightButtonUp);
                 playField.Children.Add(button);
@@ -89,13 +137,13 @@ namespace MinesweeperWPF
             {
                 for (int i = 0; i < fieldArray.Length; i++)
                     if (fieldArray[i]) SetButton(buttonArray[i], TypeButton.Mine);
-                MessageBox.Show("You lost");
+                MessageBox.Show("You lost.");
             }
             else
             {
                 Step(index);
                 if (stepCount == fieldSize * fieldSize - minesCount)
-                    MessageBox.Show("You win");
+                    MessageBox.Show("You win!");
             }
         }
 
@@ -183,13 +231,14 @@ namespace MinesweeperWPF
                 button.IsEnabled = false;
             }
         }
-        public enum TypeButton
+        enum TypeButton
         {
             Mine,
             Sign,
             Number,
             None
         }
+
 
     }
 }

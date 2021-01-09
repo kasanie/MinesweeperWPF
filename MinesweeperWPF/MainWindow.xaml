@@ -5,6 +5,12 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:MinesweeperWPF"
         mc:Ignorable="d"
-        Title="Minesweeper" Height="250" Width="250">
-    <WrapPanel Name="playField" Height="250" Width="250"/>
+        Title="Minesweeper" Height="450" Width="400">
+    <Grid Margin="0,0,0,0">
+        <WrapPanel Name="playField" Margin="0,20,0,0"/>
+        <TextBlock HorizontalAlignment="Left" Margin="43,-1,0,0" TextWrapping="Wrap" Text="Set the square size:" VerticalAlignment="Top" Height="19" Width="137" FontFamily="Jokerman" FontSize="14"/>
+        <Button x:Name="OkButton" Content="OK" HorizontalAlignment="Left" Margin="283,0
+                ,0,0" VerticalAlignment="Top" Width="70" Height="19" Click="OkButton_Click"/>
+        <TextBox x:Name="InputSize" HorizontalAlignment="Left" Height="19" Margin="185,0,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="79" TextChanged="InputSize_TextChanged"/>
+    </Grid>
 </Window>
