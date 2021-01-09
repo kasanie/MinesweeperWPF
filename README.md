@@ -10,9 +10,9 @@
 
 Моя программа:
 
-![alt text](https://github.com/ssplant/MinesweeperWPF/blob/master/2.png "Процесс игры")
-![alt text](https://github.com/ssplant/MinesweeperWPF/blob/master/3.png "Победа")
-![alt text](https://github.com/ssplant/MinesweeperWPF/blob/master/1.png "Поражение")
+![alt text](https://github.com/ssplant/MinesweeperWPF/blob/master/2.PNG "Процесс игры")
+![alt text](https://github.com/ssplant/MinesweeperWPF/blob/master/3.PNG "Победа")
+![alt text](https://github.com/ssplant/MinesweeperWPF/blob/master/1.PNG "Поражение")
 
 
 
